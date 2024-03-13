@@ -1,0 +1,72 @@
+<app-header></app-header>
+<section class="py-5">
+    <div *ngIf="allCarts.length == 0"  class="container px-lg-5 mt-5 d-flex flex-column justify-content-center align-items-center">
+        <img width="600px" height="500px" src="https://www.styletheproduct.com/wp-content/uploads/2020/05/nothing.jpg" alt="" class="img-fluid">
+        <h1 >Empty Cart</h1>
+    </div>
+    <div *ngIf="allCarts.length != 0" class="container px-4 px-lg-5 mt-5">
+        <h1>Your Cart</h1>
+        <div class="row mt-5">
+            <div class="col-lg-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of allCarts;let i=index">
+                            <td>{{i+1}} </td>
+                            <td>{{product.title.slice(0,20)}}... </td>
+                            <td><img width="60px" height="70px" [src]="product.image" alt=""> </td>
+                            <td>
+                                <div class="d-flex">
+                                    <button (click)="decrementQunatity(product._id)" class="btn fw-bolder">-</button>
+                                    <input style="width: 60px;" [value]="product.quantity" type="text" class="form-control">
+                                    <button (click)="incrementQunatity(product._id)" class="btn fw-bolder">+</button>
+                                </div>
+                            </td>
+                            <td>{{product.totalPrice}} </td>
+                            <td>
+                                <button (click)="removeCart(product._id)" class="btn">
+                                    <i class="fa-solid fa-trash text-danger"></i>
+                                </button> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="float-end mt-2">
+                    <button (click)="emptyCart()" class="btn btn-danger">Empty Cart</button>
+                    <button routerLink="" class="btn btn-success ms-2">Shop More</button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="border rounded p-3">
+                    <h3>Total :<span class="text-danger"> $ {{cartTotal}}</span></h3>
+                    <!-- Gift Coupon -->
+                    <h6 *ngIf="!couponStatus" (click)="getCoupon()">Click to view <span class="btn btn-link text-primary"><i class="fa-solid fa-tag"></i>Offers</span></h6>
+                    <div *ngIf="couponStatus" class="d-flex justify-content-evenly mt-3">
+                        <ng-container *ngIf="cartTotal>=50 && cartTotal<=250 && !couponClickStatus">
+                            <img (click)="discount5()" width="100px" height="70px" src="https://openclipart.org/image/800px/320116" alt="5%">
+                        </ng-container>
+                        <ng-container *ngIf="cartTotal>=250 && cartTotal<=500 && !couponClickStatus">
+                            <img (click)="discount25()" width="100px" height="70px" src="https://e7.pngegg.com/pngimages/47/872/png-clipart-discounts-and-allowances-coupon-aba-2017-annual-meeting-promotion-apartment-25-web-design-text.png" alt="25%">
+                        </ng-container>
+                        <ng-container *ngIf="cartTotal>500 && !couponClickStatus">
+                            <img (click)="discount50()" width="100px" height="70px" src="https://w7.pngwing.com/pngs/372/875/png-transparent-discounts-and-allowances-retail-sales-coupon-50-percent-text-trademark-service-thumbnail.png" alt="50%">
+                        </ng-container>
+                    </div>
+                    <hr class="mt-5">
+                    <div class="d-grid">
+                        <button (click)="checkout()" class="btn btn-success">Check Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

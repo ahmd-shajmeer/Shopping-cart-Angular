@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div>
+    <section class="py-5">
+        <div *ngIf="allWishlists.length == 0"  class="container px-lg-5 mt-5 d-flex flex-column justify-content-center align-items-center">
+            <img width="600px" height="500px" src="https://www.styletheproduct.com/wp-content/uploads/2020/05/nothing.jpg" alt="" class="img-fluid">
+            <h1 >Empty Wishlist</h1>
+        </div>
+        <div *ngIf="allWishlists.length != 0" class="container px-4 px-lg-5 mt-5">
+            <h1>Your Wishlist</h1>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div *ngFor="let product of allWishlists" class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img width="200px" height="200px" routerLink="/view/{{product.id}}" class="card-img-top" [src]="product.image" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{product.title}}</h5>
+                                <!-- Product price-->
+                                ${{product.price}}
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="d-flex justify-content-between">
+                                <button (click)="removeWishlist(product._id)" class="btn fs-2"><i class="fa-solid fa-trash text-success"></i></button>
+                                <button (click)="addToCart(product)" class="btn fs-2"><i class="fa-solid fa-cart-arrow-down text-danger"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

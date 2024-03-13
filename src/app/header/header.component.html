@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg bg-primary position-fixed top-0 w-100 mb-5" style="z-index: 5;" >
+    <div class="container-fluid">
+      <div class="me-auto">
+          <a class="navbar-brand fs-2" routerLink=""><i class="fa-brands fa-opencart me-2"></i>CART</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarsExample09">
+          <form role="search" class="ms-auto">
+            <input (keyup)="getSearch($event)" class="form-control" type="search" placeholder="Search by products" aria-label="Search">
+          </form>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2 align-items-center">
+          <li class="nav-item">
+            <button routerLink="/wishlist" class="btn btn-outline-dark border rounded">
+              <i class="fa-solid fa-clipboard-list me-2 text-success"></i>WISHLIST <span class="badge text-bg-secondary">{{wishlistCount}} </span></button>
+          </li>
+          <li class="nav-item">
+            <button routerLink="/cart" class="btn btn-outline-dark border rounded">
+              <i class="fa-solid fa-cart-arrow-down me-2 text-danger"></i>CART <span class="badge text-bg-secondary">{{cartCount}} </span></button>
+          </li>
+          <li *ngIf="!loginUsername" class="nav-item">
+            <button routerLink="/login" class="btn mb-3"><a  class="nav-link"></a><i class="fa-solid fa-user me-3"></i>LOGIN</button>
+          </li>
+          <li *ngIf="loginUsername" class="nav-item">
+            <i class="fa-solid fa-user me-3"></i>{{loginUsername}} 
+            <button (click)="logout()" class="btn"><i class="fa-solid fa-right-from-bracket"></i></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
